@@ -1,5 +1,7 @@
 //import necesssary libraries
 import React from "react"
+import Recipe from "./ClaudeRecipe"
+import IngredientsList from "./IngredientsList"
 
 //create the main function for the <Main />
 export default function Main(){
@@ -7,29 +9,22 @@ export default function Main(){
     //we will be updating the array and needs to be rerendered in real time so we use a state for the array
 
     //initialize state
-    const [ingredients, setIngredients] = React.useState([])
+    const [ingredients, setIngredients] = React.useState(
+        ["all the main spices", "pasta", "ground beef", "tomato paste"]
+    )
 
-    //use the map method to loop through the array of ingredients and display them as list elements
-    const ingredientList = ingredients.map( (ingredient) => {
-        return <li key = {ingredient} >{ingredient}</li>
-    })
-
-    /*function handleSubmit(event){
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
-        const newIngredient = formData.get("ingredient")
-
-        setIngredients((prevIngredients) => [...prevIngredients, newIngredient])
-    } this is before react 19 made it simpler
-    */
-     
-    //a function to take care of the addng of ingredients to the array
     //function takes in formData parameter and its get method is used to extract the value using the name as the argument
 
     function addIngredient(formData){
         const newIngredient = formData.get("ingredient")
         //use setState to update the Ingredients array
         setIngredients((prevIngredients) => [...prevIngredients, newIngredient])
+    }
+
+    const [recipeShown, setRecipeShown] = React.useState(false)
+
+    function toggleRecipeShown(){
+        setRecipeShown(prevRecipeShown => !prevRecipeShown)
     }
 
     return(
@@ -45,9 +40,13 @@ export default function Main(){
                 />
                 <button>Add Ingredient</button>
             </form>
-            <ul>
-                {ingredientList}
-            </ul>
+            {ingredients.length > 0 && <IngredientsList 
+                    ingredients = {ingredients}
+                    toggleRecipeShown = {toggleRecipeShown}
+                />
+            }
+
+            {recipeShown && <Recipe/>}
         </main>
     )
 }
