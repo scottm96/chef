@@ -1,3 +1,5 @@
+// a header component to render the header of the page
+
 export default function Header(){
     return(
         <header> 

@@ -4,8 +4,9 @@ import React from "react"
 //create the main function for the <Main />
 export default function Main(){
     //we need an array to store the ingredients as they are added
-    //we will be updatint the arrya and needs to be rerendered in real time so we use a state for the array
+    //we will be updating the array and needs to be rerendered in real time so we use a state for the array
 
+    //initialize state
     const [ingredients, setIngredients] = React.useState([])
 
     //use the map method to loop through the array of ingredients and display them as list elements
@@ -23,8 +24,11 @@ export default function Main(){
     */
      
     //a function to take care of the addng of ingredients to the array
+    //function takes in formData parameter and its get method is used to extract the value using the name as the argument
+
     function addIngredient(formData){
         const newIngredient = formData.get("ingredient")
+        //use setState to update the Ingredients array
         setIngredients((prevIngredients) => [...prevIngredients, newIngredient])
     }
 
